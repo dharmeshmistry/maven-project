@@ -13,7 +13,23 @@ pipeline{
             stage ('build'){
                  steps{
                     echo "build stage"
-                    bat "mvn clean package checkstyle:checkstyle"
+                    sh label :'',script:'mvn clean package checkstyle:checkstyle'
+                }
+               
+                post{
+                     always { 
+                        echo 'I will always say Hello again!'
+                    }
+                    success{
+                        echo "checkstyle"
+                        checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
+                        echo "archive artifact"
+                        archive '**/*.war'
+                        echo "build test package"
+                        junit '**/surefire-reports/*.xml'
+                        echo "build dev_deploy"
+                        build 'dev_deploy'
+                    }
                 }
 
             }
