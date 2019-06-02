@@ -13,7 +13,7 @@ pipeline{
             stage ('build'){
                  steps{
                     echo "build stage"
-                    sh label :'',script:'mvn clean package checkstyle:checkstyle'
+                    bat "mvn clean package checkstyle:checkstyle"
                 }
 
             }
