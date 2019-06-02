@@ -27,8 +27,7 @@ pipeline{
                         archive '**/*.war'
                         echo "build test package"
                         junit '**/surefire-reports/*.xml'
-                        echo "build dev_deploy"
-                        build 'dev_deploy'
+                       
                     }
                 }
 
@@ -36,6 +35,8 @@ pipeline{
             stage ('deploy'){
                  steps{
                     echo "deploy stage"
+                     echo "build dev_deploy"
+                        build 'dev_deploy'
                 }
 
             }
